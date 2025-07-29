@@ -3,23 +3,24 @@
 namespace App\Http\Controllers\API\V1\Employees;
 
 use App\Http\Controllers\Controller;
-use App\Jobs\ProcessEmployeeImport;
-use Illuminate\Http\Request;
+use App\Http\Requests\EmployeeImportRequest;
+use App\Services\EmployeeImportService;
 
 class EmployeeImportController extends Controller
 {
-    public function import(Request $request)
+
+    protected $employeeImportService;
+
+    public function __construct(EmployeeImportService $employeeImportService)
     {
-        $request->validate([
-            'file' => 'required|file|mimes:json',
-        ]);
+        $this->employeeImportService = $employeeImportService;
+    }
 
-        $path = $request->file('file')->store('imports');
-
-        ProcessEmployeeImport::dispatch($path, auth()->user());
+    public function import(EmployeeImportRequest $request)
+    {
+        $this->employeeImportService->import($request->file('file'), $request->user());
 
         return response()->json(['message' => 'Employee import queued']);
     }
-
 
 }
