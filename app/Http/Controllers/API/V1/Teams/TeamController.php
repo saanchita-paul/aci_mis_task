@@ -2,48 +2,48 @@
 
 namespace App\Http\Controllers\API\V1\Teams;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreTeamRequest;
+use App\Http\Requests\UpdateTeamRequest;
 use App\Models\Team;
+use App\Services\TeamService;
 use Illuminate\Http\Request;
 
 class TeamController extends Controller
 {
-    public function index()
+
+    protected TeamService $teamService;
+
+    public function __construct(TeamService $teamService)
     {
-        return Team::with('organization')->get();
+        $this->teamService = $teamService;
     }
 
-    public function store(Request $request)
+
+    public function index()
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'organization_id' => 'required|exists:organizations,id',
-        ]);
+        return $this->teamService->getAll();
+    }
 
-        $team = Team::create($validated);
-
+    public function store(StoreTeamRequest $request)
+    {
+        $team = $this->teamService->create($request->validated());
         return response()->json($team, 201);
     }
 
     public function show(Team $team)
     {
-        return $team->load('organization');
+        return $this->teamService->getById($team);
     }
 
-    public function update(Request $request, Team $team)
+    public function update(UpdateTeamRequest $request, Team $team)
     {
-        $validated = $request->validate([
-            'name' => 'sometimes|required|string|max:255',
-            'organization_id' => 'sometimes|required|exists:organizations,id',
-        ]);
-
-        $team->update($validated);
-
-        return response()->json($team);
+        $updated = $this->teamService->update($team, $request->validated());
+        return response()->json($updated);
     }
 
     public function destroy(Team $team)
     {
-        $team->delete();
-        return response()->json(null, 204);
+        $this->teamService->delete($team);
+        return response()->json(['message' => 'Deleted successfully']);
     }
 }
