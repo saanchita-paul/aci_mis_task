@@ -75,6 +75,7 @@ php artisan serve
 php artisan queue:work
 
 ```
+---
 
 ## Environment Configuration
 
@@ -83,6 +84,8 @@ php artisan queue:work
 - Telescope UI is available at: http://localhost:8000/telescope
 
 - API base URL: http://localhost:8000/api/v1/
+
+---
 
 ## Task Breakdown
 
@@ -99,6 +102,7 @@ php artisan queue:work
 - Optimized with Eager Loading
 - Used Eloquent scope
 
+--
 
 **Task 2: API with Sanctum & RBAC**
 
@@ -112,12 +116,17 @@ php artisan queue:work
     - GET /api/v1/organizations
     - GET /api/v1/teams
 
+--
+
 **Task 3: Event-Driven Processing**
 
 - JSON Import handled Event
 - Laravel Queues used for background job
 - SalaryUpdated event logs salary change
 - Notification for progress tracking and error handling
+
+--
+
 
 **Task 4: PDF Report Package**
 
@@ -133,6 +142,8 @@ http://localhost:8000/employee-report/download
 composer require aci/employee-reports:dev-main
 ```
 
+--
+
 **Task 5: DB Optimization & Telescope**
 
 - Indexes added on employees.start_date and employees.team_id
@@ -142,6 +153,8 @@ composer require aci/employee-reports:dev-main
     - Query performance
     - Exceptions and logs
 
+---
+
 ## Testing
 - Feature and unit tests in tests/Feature and tests/Unit
 - Run all tests:
@@ -149,6 +162,8 @@ composer require aci/employee-reports:dev-main
 php artisan test
 
 ```
+---
+
 ## Performance Report
 - Avg Query Time Before Indexing: 120ms
 - Avg Query Time After Indexing: 25ms
@@ -159,6 +174,8 @@ php artisan test
         - Optimized via index on `start_date`
 
 Conclusion: Adding indexes and eager-loading reduced total load time by ~80%.
+
+---
 
 ### API Documentation
 
