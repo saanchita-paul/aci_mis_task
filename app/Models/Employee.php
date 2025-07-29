@@ -21,6 +21,12 @@ class Employee extends Model
         return $this->belongsTo(Team::class);
     }
 
+    public function getOrganizationAttribute()
+    {
+        return $this->team ? $this->team->organization : null;
+    }
+
+
     public function scopeStartedAfter($query, $date) {
         return $query->where('start_date', '>=', $date);
     }
