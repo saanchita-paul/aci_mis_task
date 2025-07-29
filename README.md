@@ -17,6 +17,7 @@ This Laravel project is built to fulfill a set of advanced requirements around d
     - [Task 5: DB Optimization & Telescope](#task-5-db-optimization--telescope)
 - [Testing](#testing)
 - [Performance Report](#performance-report)
+- [API Documentation](#api-documentation)
 
 ---
 
