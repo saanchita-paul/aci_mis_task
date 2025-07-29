@@ -2,52 +2,46 @@
 
 namespace App\Http\Controllers\API\V1\Employees;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreEmployeeRequest;
+use App\Http\Requests\UpdateEmployeeRequest;
 use App\Models\Employee;
-use Illuminate\Http\Request;
+use App\Services\EmployeeService;
 
 class EmployeeController extends Controller
 {
-    public function index()
+
+    protected EmployeeService $employeeService;
+
+    public function __construct(EmployeeService $employeeService)
     {
-        return Employee::with('team.organization')->get();
+        $this->employeeService = $employeeService;
     }
 
-    public function store(Request $request)
+    public function index()
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'salary' => 'required|numeric|min:0',
-            'team_id' => 'required|exists:teams,id',
-            'start_date' => 'required|date',
-        ]);
+        return $this->employeeService->getAll();
+    }
 
-        $employee = Employee::create($validated);
-
+    public function store(StoreEmployeeRequest $request)
+    {
+        $employee = $this->employeeService->create($request->validated());
         return response()->json($employee, 201);
     }
 
     public function show(Employee $employee)
     {
-        return $employee->load('team.organization');
+        return $this->employeeService->getById($employee);
     }
 
-    public function update(Request $request, Employee $employee)
+    public function update(UpdateEmployeeRequest $request, Employee $employee)
     {
-        $validated = $request->validate([
-            'name' => 'sometimes|required|string|max:255',
-            'salary' => 'sometimes|required|numeric|min:0',
-            'team_id' => 'sometimes|required|exists:teams,id',
-            'start_date' => 'sometimes|required|date',
-        ]);
-
-        $employee->update($validated);
-
+        $employee = $this->employeeService->update($employee, $request->validated());
         return response()->json($employee);
     }
 
     public function destroy(Employee $employee)
     {
-        $employee->delete();
-        return response()->json(null, 204);
+        $this->employeeService->delete($employee);
+        return response()->json(['message' => 'Deleted successfully']);
     }
 }
