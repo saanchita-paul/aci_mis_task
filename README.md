@@ -102,7 +102,7 @@ php artisan queue:work
 - Optimized with Eager Loading
 - Used Eloquent scope
 
---
+-----
 
 **Task 2: API with Sanctum & RBAC**
 
@@ -116,7 +116,7 @@ php artisan queue:work
     - GET /api/v1/organizations
     - GET /api/v1/teams
 
---
+-----
 
 **Task 3: Event-Driven Processing**
 
@@ -125,7 +125,7 @@ php artisan queue:work
 - SalaryUpdated event logs salary change
 - Notification for progress tracking and error handling
 
---
+-----
 
 
 **Task 4: PDF Report Package**
@@ -142,7 +142,7 @@ http://localhost:8000/employee-report/download
 composer require aci/employee-reports:dev-main
 ```
 
---
+-----
 
 **Task 5: DB Optimization & Telescope**
 
