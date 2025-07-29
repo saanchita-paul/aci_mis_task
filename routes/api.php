@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ReportController;
 use App\Http\Controllers\API\V1\EmployeeController;
+use App\Http\Controllers\API\V1\EmployeeImportController;
 use App\Http\Controllers\API\V1\OrganizationController;
 use App\Http\Controllers\API\V1\TeamController;
 use Illuminate\Http\Request;
@@ -21,5 +22,6 @@ Route::middleware(['auth:sanctum', 'role:user'])->prefix('v1')->group(function (
     Route::apiResource('teams', TeamController::class);
     Route::apiResource('employees', EmployeeController::class);
     Route::get('reports/stats', [ReportController::class, 'stats']);
+    Route::post('/employees/import', [EmployeeImportController::class, 'import']);
     Route::post('/logout', [AuthController::class, 'logout']);
 });
