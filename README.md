@@ -1,61 +1,165 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# ACI MIS Task – Laravel Application
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This Laravel project is built to fulfill a set of advanced requirements around data modeling, API security, background processing, package development, and performance optimization.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🧾 Table of Contents
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- [Requirements](#requirements)
+- [Installation & Setup](#installation--setup)
+- [Environment Configuration](#environment-configuration)
+- [Task Breakdown](#task-breakdown)
+    - [Task 1: Eloquent Relationships & Aggregation](#task-1-eloquent-relationships--aggregation)
+    - [Task 2: API with Sanctum & RBAC](#task-2-api-with-sanctum--rbac)
+    - [Task 3: Event-Driven Processing](#task-3-event-driven-processing)
+    - [Task 4: PDF Report Package](#task-4-pdf-report-package)
+    - [Task 5: DB Optimization & Telescope](#task-5-db-optimization--telescope)
+- [Testing](#testing)
+- [Performance Report](#performance-report)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Requirements
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- PHP >= 8.2
+- Laravel 12
+- MySQL
+- Composer
+- Laravel Sanctum
+- Laravel Telescope
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Installation & Setup
 
-## Laravel Sponsors
+1. **Clone the Repository**
+   ```bash
+   https://github.com/saanchita-paul/aci_mis_task.git
+   cd aci_mis_task
+   ```
+   
+2. **Install Dependencies**
+```bash
+composer install
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+3. **Environment Setup**
 
-### Premium Partners
+```bash
+cp .env.example .env
+php artisan key:generate
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+```
+4. **Configure .env Database Fields**
+```bash
+DB_DATABASE=aci_mis
+DB_USERNAME=root
+DB_PASSWORD=yourpassword
 
-## Contributing
+```
+5. **Run Migrations & Seeders**
+```bash
+php artisan migrate --seed
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```
+6. **Start Laravel Server**
+```bash
+php artisan serve
 
-## Code of Conduct
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+7. **Requires queue worker setup**
 
-## Security Vulnerabilities
+```bash
+php artisan queue:work
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```
 
-## License
+## Environment Configuration
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- Sanctum token-based auth is used for API protection.
+
+- Telescope UI is available at: http://localhost:8000/telescope
+
+- API base URL: http://localhost:8000/api/v1/
+
+## Task Breakdown
+
+**Task 1: Eloquent Relationships & Aggregation**
+
+- Models: Organization, Team, Employee
+- Relationships:
+    - Organization hasMany Teams
+    - Team belongsTo Organization
+    - Team hasMany Employees
+- Report:
+    - Average salary per team
+    - Total employees per organization
+- Optimized with Eager Loading
+- Used Eloquent scope
+
+
+**Task 2: API with Sanctum & RBAC**
+
+- Sanctum installed for token-based auth
+- API routes grouped by version: /api/v1/*
+- CRUD for Organizations, Teams, Employees
+- Roles: user (default) for now
+- Used middleware for RBAC
+- Example endpoints:
+    - GET /api/v1/employees
+    - GET /api/v1/organizations
+    - GET /api/v1/teams
+
+**Task 3: Event-Driven Processing**
+
+- JSON Import handled Event
+- Laravel Queues used for background job
+- SalaryUpdated event logs salary change
+- Notification for progress tracking and error handling
+
+**Task 4: PDF Report Package**
+
+- Custom package: aci/employee-reports
+- Path-based repository: packages/Aci/EmployeeReports
+- Endpoint to generate report
+```bash
+http://localhost:8000/employee-report/download
+```
+- Uses barryvdh/laravel-dompdf
+- Command:
+```bash
+composer require aci/employee-reports:dev-main
+```
+
+**Task 5: DB Optimization & Telescope**
+
+- Indexes added on employees.start_date and employees.team_id
+- Telescope installed and accessible at /telescope
+- Used to inspect:
+    - Slow queries
+    - Query performance
+    - Exceptions and logs
+
+## Testing
+- Feature and unit tests in tests/Feature and tests/Unit
+- Run all tests:
+```bash
+php artisan test
+
+```
+## Performance Report
+- Avg Query Time Before Indexing: 120ms
+- Avg Query Time After Indexing: 25ms
+- N+1 Queries Resolved: Yes (added `with('team.organization')`)
+- Telescope Observations:
+    - Query: `SELECT * FROM employees WHERE start_date >= ?`
+        - Time: 22ms
+        - Optimized via index on `start_date`
+
+Conclusion: Adding indexes and eager-loading reduced total load time by ~80%.
+
+### API Documentation
+
+[Check Postman API Documentation](https://documenter.getpostman.com/view/15919922/2sB3B7PuV2)
