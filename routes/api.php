@@ -1,14 +1,13 @@
 <?php
 
-use App\Http\Controllers\API\AuthController;
-use App\Http\Controllers\API\ReportController;
-use App\Http\Controllers\API\V1\EmployeeController;
-use App\Http\Controllers\API\V1\EmployeeImportController;
-use App\Http\Controllers\API\V1\OrganizationController;
-use App\Http\Controllers\API\V1\TeamController;
+use App\Http\Controllers\API\V1\Auth\AuthController;
+use App\Http\Controllers\API\V1\Employees\EmployeeController;
+use App\Http\Controllers\API\V1\Employees\EmployeeImportController;
+use App\Http\Controllers\API\V1\Organizations\OrganizationController;
+use App\Http\Controllers\API\V1\Reports\ReportController;
+use App\Http\Controllers\API\V1\Teams\TeamController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
 
 
 Route::prefix('v1')->group(function () {

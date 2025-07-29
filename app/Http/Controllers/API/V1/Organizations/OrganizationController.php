@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\API\V1;
+namespace App\Http\Controllers\API\V1\Organizations;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Organization;
+use Illuminate\Http\Request;
 
 class OrganizationController extends Controller
 {

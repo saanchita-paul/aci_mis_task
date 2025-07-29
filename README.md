@@ -4,7 +4,7 @@ This Laravel project is built to fulfill a set of advanced requirements around d
 
 ---
 
-## 🧾 Table of Contents
+## Table of Contents
 
 - [Requirements](#requirements)
 - [Installation & Setup](#installation--setup)
@@ -75,6 +75,17 @@ php artisan serve
 php artisan queue:work
 
 ```
+---
+
+##  Default User Credentials
+
+Use the following account to log in and test:
+
+| Email          | Password  | Role    |
+|----------------|-----------|---------|
+| user@gmail.com | password  | user    |
+
+This user is automatically seeded using `UserSeeder` and has a default role of `user`.
 ---
 
 ## Environment Configuration
