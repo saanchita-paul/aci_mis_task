@@ -5,6 +5,7 @@
     <title>Welcome to ACI MIS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="https://www.aci-bd.com/assets/images/favicon.ico" type="image/vnd.microsoft.icon">
     <style>
         body {
             margin: 0;
