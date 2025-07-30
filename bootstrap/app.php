@@ -16,6 +16,9 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => \App\Http\Middleware\RoleMiddleware::class,
         ]);
     })
+    ->withEvents(discover: [
+        __DIR__.'/../app/Listeners',
+    ])
     ->withExceptions(function (Exceptions $exceptions): void {
         //
     })->create();
