@@ -76,6 +76,11 @@ php artisan serve
 php artisan queue:work
 
 ```
+8. **Link storage for file access**
+
+```bash
+php artisan storage:link
+```
 ---
 
 ##  Default User Credentials

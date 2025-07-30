@@ -11,12 +11,12 @@ class ImportCompleted extends Notification
 {
     use Queueable;
 
+
     /**
      * Create a new notification instance.
      */
-    public function __construct()
-    {
-        //
+    public function __construct(public int $total) {
+
     }
 
     /**
@@ -35,8 +35,9 @@ class ImportCompleted extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', url('/'))
+            ->subject('Employee Import Completed')
+            ->line("The import was completed successfully.")
+            ->line("Total employees imported: {$this->total}")
             ->line('Thank you for using our application!');
     }
 
