@@ -22,5 +22,6 @@ Route::middleware(['auth:sanctum', 'role:user'])->prefix('v1')->group(function (
     Route::apiResource('employees', EmployeeController::class);
     Route::get('reports/stats', [ReportController::class, 'stats']);
     Route::post('/employees/import', [EmployeeImportController::class, 'import']);
+    Route::get('/employee-report/download', [ReportController::class, 'downloadReport']);
     Route::post('/logout', [AuthController::class, 'logout']);
 });
